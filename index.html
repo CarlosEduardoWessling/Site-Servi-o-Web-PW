@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calcule rapidamente o gasto com combustível, pedágios e outros custos de uma viagem. Estime também o valor por passageiro.">
+  <meta name="theme-color" content="#101d35">
+  <title>RotaCerta | Calculadora de custo de viagem</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header" id="inicio">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="RotaCerta - página inicial">
+        <span class="brand-mark" aria-hidden="true">↗</span>
+        <span>rota<span class="brand-accent">certa</span><span class="brand-dot">.</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a href="#calculadora">Calculadora</a>
+        <a href="#como-funciona">Como funciona</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" aria-labelledby="titulo-principal">
+      <div class="hero-content">
+        <p class="eyebrow"><span class="eyebrow-line"></span> SIMPLES • RÁPIDO • GRATUITO</p>
+        <h1 id="titulo-principal">Sua viagem começa com <em>uma boa conta.</em></h1>
+        <p class="hero-subtitle">Descubra quanto vai gastar com combustível e despesas da estrada — e quanto fica para cada pessoa.</p>
+        <div class="hero-points" aria-label="Vantagens da calculadora">
+          <span><span class="point-icon">✓</span> Sem cadastro</span>
+          <span><span class="point-icon">✓</span> Resultado em segundos</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-orbit art-orbit-one"></div><div class="art-orbit art-orbit-two"></div>
+        <div class="art-route"><span class="art-point start"></span><span class="route-dashes"></span><span class="art-point end"></span></div>
+        <div class="art-distance">ESTIMATIVA DA ROTA <strong>↗</strong></div>
+        <div class="art-pin">⌖</div>
+      </div>
+    </section>
+
+    <div class="container workspace" id="calculadora">
+      <div class="workspace-main">
+        <section class="tool-card" aria-labelledby="titulo-calculadora">
+          <div class="section-header">
+            <span class="section-number">01 / FERRAMENTA</span>
+            <h2 id="titulo-calculadora">Calcule sua viagem</h2>
+            <p>Preencha os dados do trajeto. A estimativa será calculada ao enviar o formulário.</p>
+          </div>
+
+          <form id="form-viagem" action="" method="get">
+            <div class="form-grid">
+              <div class="field">
+                <label for="distancia">Distância (só ida) <span class="required">*</span></label>
+                <div class="input-wrap"><input id="distancia" name="distancia" type="number" inputmode="decimal" min="0.1" step="any" value="300" required><span class="input-unit">km</span></div>
+              </div>
+              <div class="field">
+                <label for="consumo">Consumo do veículo <span class="required">*</span></label>
+                <div class="input-wrap"><input id="consumo" name="consumo" type="number" inputmode="decimal" min="0.1" step="any" value="12" required><span class="input-unit">km/L</span></div>
+              </div>
+              <div class="field">
+                <label for="preco">Preço do combustível <span class="required">*</span></label>
+                <div class="input-wrap prefix"><span class="input-unit">R$</span><input id="preco" name="preco" type="number" inputmode="decimal" min="0" step="any" value="6.20" required></div>
+              </div>
+              <div class="field">
+                <label for="passageiros">Pessoas dividindo o custo <span class="required">*</span></label>
+                <div class="input-wrap"><input id="passageiros" name="passageiros" type="number" inputmode="numeric" min="1" max="50" step="1" value="2" required><span class="input-unit">pessoa(s)</span></div>
+              </div>
+              <div class="field">
+                <label for="pedagios">Total de pedágios</label>
+                <div class="input-wrap prefix"><span class="input-unit">R$</span><input id="pedagios" name="pedagios" type="number" inputmode="decimal" min="0" step="any" value="0"></div>
+              </div>
+              <div class="field">
+                <label for="extras">Outras despesas</label>
+                <div class="input-wrap prefix"><span class="input-unit">R$</span><input id="extras" name="extras" type="number" inputmode="decimal" min="0" step="any" value="0"></div>
+              </div>
+            </div>
+            <label class="checkbox-row" for="ida-volta">
+              <input type="checkbox" id="ida-volta" name="ida_volta" value="sim">
+              <span><strong>Incluir volta pelo mesmo caminho</strong><small>A distância será duplicada. Pedágios e outras despesas devem ser informados já com o total dos dois trechos.</small></span>
+            </label>
+            <button class="calculate-btn" type="submit">Calcular custo da viagem <span aria-hidden="true">→</span></button>
+            <p class="form-footnote">* Campos obrigatórios. Os valores iniciais são apenas um exemplo e podem ser alterados.</p>
+          </form>
+        </section>
+
+        <section id="resultado" class="results-card" aria-labelledby="titulo-resultado" hidden>
+          <div class="result-topline"><span class="section-number">02 / RESULTADO</span><span class="result-status">ESTIMATIVA CONCLUÍDA ✓</span></div>
+          <h2 id="titulo-resultado">Pronto, aqui está sua estimativa.</h2>
+          <p class="result-caption">Custo total aproximado da viagem</p>
+          <p class="result-total" id="custo-total">R$ 0,00</p>
+          <div class="result-stats">
+            <div><small>Por pessoa</small><strong id="por-pessoa">R$ 0,00</strong></div>
+            <div><small>Distância total</small><strong id="distancia-total">0 km</strong></div>
+            <div><small>Combustível estimado</small><strong id="litros">0 L</strong></div>
+          </div>
+          <div class="breakdown" aria-label="Detalhamento do custo">
+            <h3>Para onde vai o dinheiro?</h3>
+            <div><span>Combustível</span><strong id="custo-combustivel">R$ 0,00</strong></div>
+            <div><span>Pedágios</span><strong id="custo-pedagios">R$ 0,00</strong></div>
+            <div><span>Outras despesas</span><strong id="custo-extras">R$ 0,00</strong></div>
+          </div>
+          <a class="text-link" href="index.html#calculadora">Fazer outro cálculo ↗</a>
+          <p class="result-note">Valores estimados: consumo real e despesas podem variar conforme o percurso.</p>
+        </section>
+        <div id="mensagem-erro" class="error-message" role="alert" hidden></div>
+      </div>
+
+      <aside class="workspace-side" aria-label="Informações adicionais">
+        <div class="ad-placeholder" aria-label="Área reservada para publicidade">
+          <span class="ad-label">ESPAÇO PUBLICITÁRIO</span>
+          <span class="ad-symbol" aria-hidden="true">▧</span>
+          <strong>Seu anúncio aqui</strong>
+          <small>300 × 250 • área demonstrativa</small>
+        </div>
+        <div class="side-tip"><span class="tip-icon">✦</span><strong>Dica de viagem</strong><p>Use o consumo médio real do seu veículo para ter uma estimativa mais próxima da realidade.</p></div>
+      </aside>
+    </div>
+
+    <section class="container how-section" id="como-funciona" aria-labelledby="titulo-como-funciona">
+      <div class="how-heading"><span class="section-number">ENTENDA O CÁLCULO</span><h2 id="titulo-como-funciona">Conta simples.<br>Decisão mais fácil.</h2></div>
+      <div class="steps">
+        <article><span class="step-index">01</span><h3>Informe o trajeto</h3><p>Digite a distância da ida e marque se também vai voltar.</p></article>
+        <article><span class="step-index">02</span><h3>Adicione os gastos</h3><p>Informe consumo, combustível, pedágios e possíveis despesas extras.</p></article>
+        <article><span class="step-index">03</span><h3>Veja o total</h3><p>O serviço estima o valor da viagem e divide igualmente entre os participantes.</p></article>
+      </div>
+      <p class="how-formula"><strong>Fórmula:</strong> (distância total ÷ consumo em km/L) × preço do litro + pedágios + outras despesas.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><a class="brand footer-brand" href="#inicio"><span class="brand-mark" aria-hidden="true">↗</span><span>rota<span class="brand-accent">certa</span><span class="brand-dot">.</span></span></a></div>
+  </footer>
+</body>
+</html>
